@@ -1,18 +1,17 @@
 package me.project.memberservice.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
+import me.project.memberservice.application.port.in.FindMemberShipCommand;
 import me.project.memberservice.application.port.in.RegistMemberShipCommand;
 import me.project.memberservice.application.port.in.RegistMembershipUseCase;
 import me.project.memberservice.common.WebAdapter;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import me.project.memberservice.domain.MemberShip;
+import org.springframework.web.bind.annotation.*;
 
-@WebAdapter
-@RequestMapping("/api/v1/membership")
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/membership")
 @RestController
+@WebAdapter
 public class MemberShipController {
 
     private RegistMembershipUseCase membershipUseCase;
@@ -23,14 +22,25 @@ public class MemberShipController {
      * @return
      */
     @PostMapping
-    Long regist(@RequestBody RegistMemberShipRequest request) {
-        RegistMemberShipCommand registMemberShipCommand = RegistMemberShipCommand
+    public MemberShip regist(@RequestBody RegistMemberShipRequest request) {
+        RegistMemberShipCommand registMemberShipCommand = getRegistMemberShipCommand(request);
+        return membershipUseCase.regist(registMemberShipCommand);
+    }
+
+    private RegistMemberShipCommand getRegistMemberShipCommand(RegistMemberShipRequest request) {
+        return RegistMemberShipCommand
                 .builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .address(request.getAddress())
                 .build();
+    }
 
-        return membershipUseCase.regist(registMemberShipCommand);
+    @GetMapping
+    public FindMemberShipCommand find(@RequestBody FindMemberShipRequest request) {
+        return FindMemberShipCommand
+                .builder()
+                .name(request.getName())
+                .build();
     }
 }

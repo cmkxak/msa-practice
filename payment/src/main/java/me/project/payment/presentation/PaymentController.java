@@ -17,7 +17,6 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-
     @PostMapping
     public ResponseEntity<PaymentResponse> pay(@RequestBody PaymentRequest paymentRequest) {
         PaymentResponse paymentResponse = paymentService.pay(paymentRequest);

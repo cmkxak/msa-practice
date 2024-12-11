@@ -1,2 +1,4 @@
-package me.project.payment.presentation;public class CancelPayController {
+package me.project.payment.presentation;
+
+public class CancelPayController {
 }

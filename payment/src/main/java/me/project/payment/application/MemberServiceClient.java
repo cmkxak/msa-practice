@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface MemberServiceClient {
 
     // 회원 상태 확인
-    @GetMapping("/members/{memberId}/status")
+    @GetMapping("/{memberId}")
     MemberStatusResponse getMemberStatus(@PathVariable("memberId") String memberId);
 
     // 회원 한도 확인
-    @GetMapping("/members/{memberId}/limit")
+    @GetMapping("/{memberId}/limit")
     MemberLimitResponse getMemberLimit(@PathVariable("memberId") String memberId);
+
+    @GetMapping
 }

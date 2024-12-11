@@ -1,1 +1,6 @@
-rootProject.name = 'hexagonal-practice'
+rootProject.name = 'cm-pay'
+
+include 'member-service'
+include 'banking-service'
+include 'payment-service'
+include 'common'
