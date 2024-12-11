@@ -28,13 +28,13 @@ public class RegistBankAccountService implements RegistBankAccountUseCase {
     @Override
     public RegistBankAccount registBankAccount(RegistBankAccountCommand command) {
         //todo : 1. 회원 상태 조회
-        BankAccount bankAccount = getbankAccountInfoFromExtenral(command);
+        BankAccount bankAccount = getBankAccountInfoFromExtenral(command);
         validateBankAccountStatus(bankAccount);
         RegistBankAccountEntity registBankAccountEntity = getRegistBankAccountEntity(command);
         return registBankAccountMapper.mapToDomain(registBankAccountEntity);
     }
 
-    private BankAccount getbankAccountInfoFromExtenral(RegistBankAccountCommand command) {
+    private BankAccount getBankAccountInfoFromExtenral(RegistBankAccountCommand command) {
         return requestBankAccountInfoPort.getBankAccountInfoPort(
                 command.getBankName(), command.getBankAccountNumber()
         );
