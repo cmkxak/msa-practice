@@ -27,25 +27,32 @@ public class RegistBankAccountService implements RegistBankAccountUseCase {
 
     @Override
     public RegistBankAccount registBankAccount(RegistBankAccountCommand command) {
-        //1. 회원 상태 조회 (일단 생략 -> MEMBER-service가 담당..)
+        //todo : 1. 회원 상태 조회
+        BankAccount bankAccount = getbankAccountInfoFromExtenral(command);
+        validateBankAccountStatus(bankAccount);
+        RegistBankAccountEntity registBankAccountEntity = getRegistBankAccountEntity(command);
+        return registBankAccountMapper.mapToDomain(registBankAccountEntity);
+    }
 
-        //2. 계좌 상태 조회
-        BankAccount account = requestBankAccountInfoPort.getBankAccountInfoPort(
+    private BankAccount getbankAccountInfoFromExtenral(RegistBankAccountCommand command) {
+        return requestBankAccountInfoPort.getBankAccountInfoPort(
                 command.getBankName(), command.getBankAccountNumber()
         );
-
-        if (account.isAccountStatusValid()) {
-            RegistBankAccountEntity registBankAccountEntity = registBankAccountPort.createRegistBankAccountEntity(
-                    command.getMemberId(),
-                    command.getBankName(),
-                    command.getBankAccountNumber(),
-                    command.isValid()
-            );
-
-            return registBankAccountMapper.mapToDomain(registBankAccountEntity);
-        }
-
-        throw new CmPayExcetion(INVALID_BANK_ACCOUNT.getMessage(),
-                INVALID_BANK_ACCOUNT);
     }
+
+    private void validateBankAccountStatus(BankAccount account) {
+        if (!account.isAccountStatusValid())
+            throw new CmPayExcetion(INVALID_BANK_ACCOUNT.getMessage(),
+                    INVALID_BANK_ACCOUNT);
+    }
+
+    private RegistBankAccountEntity getRegistBankAccountEntity(RegistBankAccountCommand command) {
+        return registBankAccountPort.createRegistBankAccountEntity(
+                command.getMemberId(),
+                command.getBankName(),
+                command.getBankAccountNumber(),
+                command.isValid()
+        );
+    }
+
 }
