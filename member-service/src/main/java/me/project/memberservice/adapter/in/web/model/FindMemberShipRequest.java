@@ -1,6 +1,5 @@
-package me.project.memberservice.adapter.in.web;
+package me.project.memberservice.adapter.in.web.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

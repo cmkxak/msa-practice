@@ -24,7 +24,13 @@ repositories {
 }
 
 dependencies {
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // WebClient 사용을 위한 WebFlux
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // JSON 직렬화/역직렬화용 (선택)
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'

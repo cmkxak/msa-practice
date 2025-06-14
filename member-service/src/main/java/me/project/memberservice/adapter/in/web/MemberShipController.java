@@ -1,12 +1,15 @@
 package me.project.memberservice.adapter.in.web;
 
 import lombok.RequiredArgsConstructor;
-import me.project.memberservice.application.port.in.FindMemberShipCommand;
+import me.project.memberservice.adapter.in.web.model.RegistMemberShipRequest;
 import me.project.memberservice.application.port.in.RegistMemberShipCommand;
 import me.project.memberservice.application.port.in.RegistMembershipUseCase;
 import me.project.memberservice.common.WebAdapter;
 import me.project.memberservice.domain.MemberShip;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/membership")
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @WebAdapter
 public class MemberShipController {
 
-    private RegistMembershipUseCase membershipUseCase;
+    private final RegistMembershipUseCase membershipUseCase;
 
     /**
      * 멤버십을 등록한다.
@@ -36,11 +39,4 @@ public class MemberShipController {
                 .build();
     }
 
-    @GetMapping
-    public FindMemberShipCommand find(@RequestBody FindMemberShipRequest request) {
-        return FindMemberShipCommand
-                .builder()
-                .name(request.getName())
-                .build();
-    }
 }

@@ -17,6 +17,7 @@ public class CmPayExcetion extends RuntimeException {
         /* Member, 1xxxxx*/
         MEMBER_NOT_FOUND(10000, "회원을 찾을 수 없습니다."),
         INVALID_MEMBER(10001, "유효하지 않은 회원입니다."),
+        EXTERNAL_ERROR(10002, "외부사와 통신에 실패했습니다."),
 
         /* Money, 2xxxxx */
         INSUFFICIENT_BALANCE(20000, "잔액이 부족합니다."),
