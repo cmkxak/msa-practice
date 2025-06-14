@@ -17,5 +17,4 @@ public interface MemberServiceClient {
     @GetMapping("/{memberId}/limit")
     MemberLimitResponse getMemberLimit(@PathVariable("memberId") String memberId);
 
-    @GetMapping
 }
